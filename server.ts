@@ -38,3 +38,6 @@ app.use(
 app.listen(port , () => {
     console.log(`server is running:http://localhost:${port} `)
 })
+app.get("/", (req: Request, res: Response) => {
+  res.send("<h1>Hello KLab Server</h1>");
+});
