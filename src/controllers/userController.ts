@@ -75,7 +75,11 @@ export const signin = async (req: Request, res: Response, next: NextFunction) =>
 
 export const login = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { email, password } = req.body;
+    const { password } = req.body;
+    const email = String(req.body.email || "").trim().toLowerCase();
+    if (!email || !password) {
+      return res.status(400).json({ message: "email and password are required" });
+    }
     const existingUser = await User.findOne({ email });
     if (!existingUser) {
       return res.status(400).json({ message: "User not found, please register" });
@@ -91,10 +95,12 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
     existingUser.accessToken = token;
     await existingUser.save();
     return res.status(200).json({ message: "User logged in successfully", existingUser });
-  } catch (error) {
-    return res.status(400).json({ message: "Error in user login", error });
+  } catch (error: any) {
+    console.error("Login error:", error);
+    return res.status(500).json({ message: "Error in user login", error: error?.message ?? error });
   }
 };
+
 
 export const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
   try {
