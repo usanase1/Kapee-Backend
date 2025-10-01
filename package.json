@@ -4,10 +4,11 @@
   "description": "ecommerce backend",
   "main": "server.ts",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only server.ts",
-    "build": "tsc",
-    "start": "npx ts-node server.ts"
-  },
+  "dev": "ts-node-dev --respawn --transpile-only server.ts",
+  "build": "tsc",
+  "start": "node dist/server.js"
+}
+,
   "author": "usanase",
   "license": "ISC",
   "dependencies": {
