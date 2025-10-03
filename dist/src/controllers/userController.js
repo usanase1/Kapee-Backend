@@ -75,8 +75,13 @@ const signin = (req, res, next) => __awaiter(void 0, void 0, void 0, function* (
 });
 exports.signin = signin;
 const login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     try {
-        const { email, password } = req.body;
+        const { password } = req.body;
+        const email = String(req.body.email || "").trim().toLowerCase();
+        if (!email || !password) {
+            return res.status(400).json({ message: "email and password are required" });
+        }
         const existingUser = yield userModel_1.User.findOne({ email });
         if (!existingUser) {
             return res.status(400).json({ message: "User not found, please register" });
@@ -94,7 +99,8 @@ const login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* ()
         return res.status(200).json({ message: "User logged in successfully", existingUser });
     }
     catch (error) {
-        return res.status(400).json({ message: "Error in user login", error });
+        console.error("Login error:", error);
+        return res.status(500).json({ message: "Error in user login", error: (_a = error === null || error === void 0 ? void 0 : error.message) !== null && _a !== void 0 ? _a : error });
     }
 });
 exports.login = login;
