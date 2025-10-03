@@ -15,7 +15,14 @@ const swaggerOptions = {
       },
     ],
   },
-  apis: ["./src/docs/*.docs.ts","./src/routes/**/*.ts","./dist/docs/*.docs.js" ],
+  servers: [
+    { url: "http://localhost:5000" },
+    { url: "https://kapee-backend.onrender.com" }
+  ],
+  apis: [
+    "./src/docs/*.docs.ts",      // dev
+    "./dist/docs/*.docs.js"      // prod build
+  ]
 };
 
 const swaggerDocs = swaggerJSDoc(swaggerOptions);

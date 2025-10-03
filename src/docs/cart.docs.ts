@@ -4,6 +4,8 @@
  *   post:
  *     tags: [Cart]
  *     summary: Add product to cart
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -21,6 +23,8 @@
  *     responses:
  *       200:
  *         description: Updated cart object
+ *       401:
+ *         description: Unauthorized (missing/invalid token)
  *       500:
  *         description: Server error
  * /api-v1/cart/{userId}:
